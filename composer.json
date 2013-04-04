@@ -1,6 +1,6 @@
 {
     "name": "dragonprojects/dragonjsonserveraccount",
-    "description": "Extension for DragonJsonServer to handle accounts, sessions and emailaddresses",
+    "description": "Extension for DragonJsonServer to handle accounts and sessions",
     "license": "BSD-3-Clause",
     "authors": [
         {
