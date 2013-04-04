@@ -13,8 +13,13 @@
 return [
     'apiclasses' => [
         '\DragonJsonServerAccount\Api\Account' => 'Account',
-        '\DragonJsonServerAccount\Api\EmailAddress' => 'EmailAddress',
     ],
+	'service_manager' => [
+		'invokables' => [
+            'Account' => '\DragonJsonServerAccount\Service\Account',
+            'Session' => '\DragonJsonServerAccount\Service\Session',
+		],
+	],
 	'doctrine' => [
 		'driver' => [
 			'DragonJsonServerAccount_driver' => [
@@ -29,13 +34,6 @@ return [
 					'DragonJsonServerAccount\Entity' => 'DragonJsonServerAccount_driver'
 				],
 			],
-		],
-	],
-	'service_manager' => [
-		'invokables' => [
-            'Account' => '\DragonJsonServerAccount\Service\Account',
-            'Emailaddress' => '\DragonJsonServerAccount\Service\Emailaddress',
-            'Session' => '\DragonJsonServerAccount\Service\Session',
 		],
 	],
     'eventlisteners' => [
