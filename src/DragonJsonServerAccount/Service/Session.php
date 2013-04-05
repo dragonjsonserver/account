@@ -46,6 +46,7 @@ class Session
 	 * Prüft den Sessionhash und setzt die Session
 	 * @param string $sessionhash
 	 * @return \DragonJsonServerAccount\Entity\Session
+     * @throws \DragonJsonServer\Exception
 	 */
 	public function verifySession($sessionhash)
 	{

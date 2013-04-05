@@ -35,6 +35,7 @@ class Account
 	 * Gibt den Account zur übergebenen AccountID zurück
 	 * @param integer $account_id
 	 * @return \DragonJsonServerAccount\Entity\Account
+     * @throws \DragonJsonServer\Exception
 	 */
 	public function getAccount($account_id)
 	{
