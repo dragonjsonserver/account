@@ -14,6 +14,8 @@ namespace DragonJsonServerAccount;
  */
 class Module
 {
+    use \DragonJsonServer\ServiceManagerTrait;
+	
     /**
      * Gibt die Konfiguration des Moduls zurück
      * @return array
@@ -47,7 +49,7 @@ class Module
     	$sharedManager = $moduleManager->getEventManager()->getSharedManager();
     	$sharedManager->attach('DragonJsonServer\Service\Server', 'request', 
 	    	function (\DragonJsonServer\Event\Request $request) {
-	    		$serviceManager = $request->getServiceManager();
+	    		$serviceManager = $this->getServiceManager();
 	    		
 	    		$method = $request->getRequest()->getMethod();
 	    		list ($classname, $methodname) = $serviceManager->get('Server')->parseMethod($method);
@@ -62,7 +64,7 @@ class Module
     	);
     	$sharedManager->attach('DragonJsonServer\Service\Server', 'servicemap', 
     		function (\DragonJsonServer\Event\Servicemap $servicemap) {
-	    		$serviceManager = $servicemap->getServiceManager();
+	    		$serviceManager = $this->getServiceManager();
 	    		
 	    		$serviceServer = $serviceManager->get('Server');
 		        foreach ($servicemap->getServicemap()->getServices() as $method => $service) {
