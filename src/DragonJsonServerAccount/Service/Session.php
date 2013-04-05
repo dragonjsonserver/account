@@ -15,6 +15,7 @@ namespace DragonJsonServerAccount\Service;
 class Session
 {
     use \DragonJsonServer\ServiceManagerTrait;
+	use \DragonJsonServer\EventManagerTrait;
 	use \DragonJsonServerDoctrine\EntityManagerTrait;
 	
 	/**
@@ -102,7 +103,12 @@ class Session
 	public function removeSession(\DragonJsonServerAccount\Entity\Session $session)
 	{
 		$entityManager = $this->getEntityManager();
-		
+
+		$this->getEventManager()->trigger(
+			(new \DragonJsonServerAccount\Event\Logout())
+				->setTarget($this)
+				->setSession($session)
+		);
 		$entityManager->remove($session);
 		$entityManager->flush();
 		return $this;

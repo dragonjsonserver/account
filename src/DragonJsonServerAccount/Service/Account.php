@@ -15,6 +15,7 @@ namespace DragonJsonServerAccount\Service;
 class Account
 {
 	use \DragonJsonServer\ServiceManagerTrait;
+	use \DragonJsonServer\EventManagerTrait;
 	use \DragonJsonServerDoctrine\EntityManagerTrait;
 
 	/**
@@ -28,6 +29,11 @@ class Account
 		$account = new \DragonJsonServerAccount\Entity\Account();
 		$entityManager->persist($account);
 		$entityManager->flush();
+		$this->getEventManager()->trigger(
+			(new \DragonJsonServerAccount\Event\CreateAccount())
+				->setTarget($this)
+				->setAccount($account)
+		);
 		return $account;
 	}
 	
