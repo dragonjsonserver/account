@@ -16,6 +16,8 @@ namespace DragonJsonServerAccount\Entity;
  */
 class Account
 {
+	use \DragonJsonServerDoctrine\Entity\CreatedTrait;
+	
 	/** 
 	 * @Doctrine\ORM\Mapping\Id 
 	 * @Doctrine\ORM\Mapping\Column(type="integer")
@@ -40,6 +42,7 @@ class Account
 	{
 		return [
 			'account_id' => $this->getAccountId(),
+			'created' => $this->getCreated(),
 		];
 	}
 }

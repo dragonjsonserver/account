@@ -16,17 +16,16 @@ namespace DragonJsonServerAccount\Entity;
  */
 class Session
 {
+	use \DragonJsonServerDoctrine\Entity\ModifiedTrait;
+	use \DragonJsonServerDoctrine\Entity\CreatedTrait;
+	use \DragonJsonServerAccount\Entity\AccountIdTrait;
+	
 	/**
 	 * @Doctrine\ORM\Mapping\Id 
 	 * @Doctrine\ORM\Mapping\Column(type="integer")
 	 * @Doctrine\ORM\Mapping\GeneratedValue
 	 **/
 	protected $session_id;
-	
-	/**
-	 * @Doctrine\ORM\Mapping\Column(type="integer")
-	 **/
-	protected $account_id;
 	
 	/**
 	 * @Doctrine\ORM\Mapping\Column(type="string")
@@ -45,26 +44,6 @@ class Session
 	public function getSessionId()
 	{
 		return $this->session_id;
-	}
-	
-	/**
-	 * Setzt die AccountID der Session
-	 * @param integer $account_id
-	 * @return Session
-	 */
-	public function setAccountId($account_id)
-	{
-		$this->account_id = $account_id;
-		return $this;
-	}
-	
-	/**
-	 * Gibt die AccountID der Session zurück
-	 * @return integer
-	 */
-	public function getAccountId()
-	{
-		return $this->account_id;
 	}
 	
 	/**
@@ -115,6 +94,8 @@ class Session
 	{
 		return [
 			'session_id' => $this->getSessionId(),
+			'modified' => $this->getModified(),
+			'created' => $this->getCreated(),
 			'account_id' => $this->getAccountId(),
 			'sessionhash' => $this->getSessionhash(),
 			'data' => $this->getData(),
