@@ -36,38 +36,4 @@ return [
 			],
 		],
 	],
-    'eventlisteners' => [
-    	['DragonJsonServer\Service\Server', 'request', function (\DragonJsonServer\Event\Request $request) {
-    		$serviceManager = $request->getServiceManager();
-    		
-    		$method = $request->getRequest()->getMethod();
-    		list ($classname, $methodname) = $serviceManager->get('Server')->parseMethod($method);
-    		$classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
-    		if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('authenticate')) {
-    			return;
-    		}
-    		$serviceSession = $serviceManager->get('Session');
-    		$session = $serviceSession->verifySession($request->getRequest()->getParam('sessionhash'));
-    		$serviceSession->setSession($session);
-    	}],
-    	['DragonJsonServer\Service\Server', 'servicemap', function (\DragonJsonServer\Event\Servicemap $servicemap) {
-    		$serviceManager = $servicemap->getServiceManager();
-    		
-    		$serviceServer = $serviceManager->get('Server');
-	        foreach ($servicemap->getServicemap()->getServices() as $method => $service) {
-    			list ($classname, $methodname) = $serviceServer->parseMethod($method);
-	            $classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
-	            if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('authenticate')) {
-	                continue;
-	            }
-	            $service->addParams([
-	                [
-	                    'type' => 'string',
-	                    'name' => 'sessionhash',
-	                    'optional' => false,
-	                ],
-	            ]);
-	        }
-    	}]
-    ],
 ];

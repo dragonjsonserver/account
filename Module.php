@@ -37,4 +37,49 @@ class Module
             ],
         ];
     }
+    
+    /**
+     * Wird bei der Initialisierung des Moduls aufgerufen
+     * @param \Zend\ModuleManager\ModuleManager $moduleManager
+     */
+    public function init(\Zend\ModuleManager\ModuleManager $moduleManager)
+    {
+    	$sharedManager = $moduleManager->getEventManager()->getSharedManager();
+    	$sharedManager->attach('DragonJsonServer\Service\Server', 'request', 
+	    	function (\DragonJsonServer\Event\Request $request) {
+	    		$serviceManager = $request->getServiceManager();
+	    		
+	    		$method = $request->getRequest()->getMethod();
+	    		list ($classname, $methodname) = $serviceManager->get('Server')->parseMethod($method);
+	    		$classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
+	    		if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('authenticate')) {
+	    			return;
+	    		}
+	    		$serviceSession = $serviceManager->get('Session');
+	    		$session = $serviceSession->verifySession($request->getRequest()->getParam('sessionhash'));
+	    		$serviceSession->setSession($session);
+	    	}
+    	);
+    	$sharedManager->attach('DragonJsonServer\Service\Server', 'servicemap', 
+    		function (\DragonJsonServer\Event\Servicemap $servicemap) {
+	    		$serviceManager = $servicemap->getServiceManager();
+	    		
+	    		$serviceServer = $serviceManager->get('Server');
+		        foreach ($servicemap->getServicemap()->getServices() as $method => $service) {
+	    			list ($classname, $methodname) = $serviceServer->parseMethod($method);
+		            $classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
+		            if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('authenticate')) {
+		                continue;
+		            }
+		            $service->addParams([
+		                [
+		                    'type' => 'string',
+		                    'name' => 'sessionhash',
+		                    'optional' => false,
+		                ],
+		            ]);
+		        }
+    		}
+    	);
+    }
 }
