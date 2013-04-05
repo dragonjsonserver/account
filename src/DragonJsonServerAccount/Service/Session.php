@@ -81,6 +81,20 @@ class Session
 	}
 	
 	/**
+	 * Aktualisiert die übergebene Session in der Datenbank
+	 * @param \DragonJsonServerAccount\Entity\Session $session
+	 * @return Session
+	 */
+	public function updateSession(\DragonJsonServerAccount\Entity\Session $session)
+	{
+		$entityManager = $this->getEntityManager();
+		
+		$entityManager->persist($session);
+		$entityManager->flush();
+		return $this;
+	}
+	
+	/**
 	 * Entfernt die übergebene Session aus der Datenbank
 	 * @param \DragonJsonServerAccount\Entity\Session $session
 	 * @return Session
