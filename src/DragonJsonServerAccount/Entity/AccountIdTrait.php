@@ -22,7 +22,7 @@ trait AccountIdTrait
 	/**
 	 * Setzt die AccountID der Session
 	 * @param integer $account_id
-	 * @return Session
+	 * @return AccountIdTrait
 	 */
 	public function setAccountId($account_id)
 	{
