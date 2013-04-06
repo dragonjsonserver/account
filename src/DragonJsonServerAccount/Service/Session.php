@@ -36,7 +36,7 @@ class Session
 		$account_id = $account->getAccountId();
 		$session = (new \DragonJsonServerAccount\Entity\Session())
 			->setAccountId($account_id)
-			->setSessionhash(md5($account_id . time()))
+			->setSessionhash(md5($account_id . microtime(true)))
 			->setData($data);
 		$entityManager->persist($session);
 		$entityManager->flush();
