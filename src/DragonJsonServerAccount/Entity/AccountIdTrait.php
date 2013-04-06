@@ -20,7 +20,7 @@ trait AccountIdTrait
 	protected $account_id;
 	
 	/**
-	 * Setzt die AccountID der Session
+	 * Setzt die AccountID der Entity
 	 * @param integer $account_id
 	 * @return AccountIdTrait
 	 */
@@ -31,7 +31,7 @@ trait AccountIdTrait
 	}
 	
 	/**
-	 * Gibt die AccountID der Session zurück
+	 * Gibt die AccountID der Entity zurück
 	 * @return integer
 	 */
 	public function getAccountId()
