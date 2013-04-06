@@ -94,8 +94,8 @@ class Session
 	{
 		return [
 			'session_id' => $this->getSessionId(),
-			'modified' => $this->getModified()->getTimestamp(),
-			'created' => $this->getCreated()->getTimestamp(),
+			'modified' => $this->getModifiedTimestamp(),
+			'created' => $this->getCreatedTimestamp(),
 			'account_id' => $this->getAccountId(),
 			'sessionhash' => $this->getSessionhash(),
 			'data' => $this->getData(),

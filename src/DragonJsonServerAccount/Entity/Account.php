@@ -42,7 +42,7 @@ class Account
 	{
 		return [
 			'account_id' => $this->getAccountId(),
-			'created' => $this->getCreated()->getTimestamp(),
+			'created' => $this->getCreatedTimestamp(),
 		];
 	}
 }
