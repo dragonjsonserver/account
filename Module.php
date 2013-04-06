@@ -48,26 +48,25 @@ class Module
     {
     	$sharedManager = $moduleManager->getEventManager()->getSharedManager();
     	$sharedManager->attach('DragonJsonServer\Service\Server', 'request', 
-	    	function (\DragonJsonServer\Event\Request $request) {
+	    	function (\DragonJsonServer\Event\Request $eventRequest) {
 	    		$serviceManager = $this->getServiceManager();
-	    		
-	    		$method = $request->getRequest()->getMethod();
+	    		$request = $eventRequest->getRequest();
+	    		$method = $request->getMethod();
 	    		list ($classname, $methodname) = $serviceManager->get('Server')->parseMethod($method);
 	    		$classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
 	    		if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('authenticate')) {
 	    			return;
 	    		}
 	    		$serviceSession = $serviceManager->get('Session');
-	    		$session = $serviceSession->verifySession($request->getRequest()->getParam('sessionhash'));
+	    		$session = $serviceSession->verifySession($request->getParam('sessionhash'));
 	    		$serviceSession->setSession($session);
 	    	}
     	);
     	$sharedManager->attach('DragonJsonServer\Service\Server', 'servicemap', 
-    		function (\DragonJsonServer\Event\Servicemap $servicemap) {
+    		function (\DragonJsonServer\Event\Servicemap $eventServicemap) {
 	    		$serviceManager = $this->getServiceManager();
-	    		
 	    		$serviceServer = $serviceManager->get('Server');
-		        foreach ($servicemap->getServicemap()->getServices() as $method => $service) {
+		        foreach ($eventServicemap->getServicemap()->getServices() as $method => $service) {
 	    			list ($classname, $methodname) = $serviceServer->parseMethod($method);
 		            $classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
 		            if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('authenticate')) {
