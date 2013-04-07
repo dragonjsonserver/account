@@ -58,7 +58,7 @@ class Module
 	    			return;
 	    		}
 	    		$serviceSession = $serviceManager->get('Session');
-	    		$session = $serviceSession->verifySession($request->getParam('sessionhash'));
+	    		$session = $serviceSession->getSessionBySessionhash($request->getParam('sessionhash'));
 	    		$serviceSession->setSession($session);
 	    	}
     	);

@@ -44,25 +44,6 @@ class Session
 	}
 	
 	/**
-	 * Prüft den Sessionhash und gibt die Session zurück
-	 * @param string $sessionhash
-	 * @return \DragonJsonServerAccount\Entity\Session
-     * @throws \DragonJsonServer\Exception
-	 */
-	public function verifySession($sessionhash)
-	{
-		$entityManager = $this->getEntityManager();
-		
-		$conditions = ['sessionhash' => $sessionhash];
-		$session = $entityManager->getRepository('\DragonJsonServerAccount\Entity\Session')
-                                 ->findOneBy($conditions);
-		if (null === $session) {
-			throw new \DragonJsonServer\Exception('invalid sessionhash', $conditions);
-		}
-		return $session;
-	}
-	
-	/**
 	 * Setzt die aktuelle Session
 	 * @param \DragonJsonServerAccount\Entity\Session $session
 	 * @return Session
@@ -80,6 +61,25 @@ class Session
 	public function getSession()
 	{
 		return $this->session;
+	}
+	
+	/**
+	 * Gibt die Session mit dem Sessionhash zurück
+	 * @param string $sessionhash
+	 * @return \DragonJsonServerAccount\Entity\Session
+     * @throws \DragonJsonServer\Exception
+	 */
+	public function getSessionBySessionhash($sessionhash)
+	{
+		$entityManager = $this->getEntityManager();
+
+		$conditions = ['sessionhash' => $sessionhash];
+		$session = $entityManager->getRepository('\DragonJsonServerAccount\Entity\Session')
+			->findOneBy($conditions);
+		if (null === $session) {
+			throw new \DragonJsonServer\Exception('invalid sessionhash', $conditions);
+		}
+		return $session;
 	}
 	
 	/**
