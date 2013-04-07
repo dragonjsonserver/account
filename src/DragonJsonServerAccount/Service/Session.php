@@ -56,7 +56,7 @@ class Session
 	
 	/**
 	 * Gibt die aktuelle Session zurück
-	 * @return \DragonJsonServerAccount\Entity\Session
+	 * @return \DragonJsonServerAccount\Entity\Session|null
 	 */
 	public function getSession()
 	{
