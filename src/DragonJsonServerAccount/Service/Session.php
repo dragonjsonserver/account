@@ -53,10 +53,11 @@ class Session
 	{
 		$entityManager = $this->getEntityManager();
 		
+		$conditions = ['sessionhash' => $sessionhash];
 		$session = $entityManager->getRepository('\DragonJsonServerAccount\Entity\Session')
-                                 ->findOneBy(['sessionhash' => $sessionhash]);
+                                 ->findOneBy($conditions);
 		if (null === $session) {
-			throw new \DragonJsonServer\Exception('incorrect sessionhash', ['sessionhash' => $sessionhash]);
+			throw new \DragonJsonServer\Exception('invalid sessionhash', $conditions);
 		}
 		return $session;
 	}

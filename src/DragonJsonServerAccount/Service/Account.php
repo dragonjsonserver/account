@@ -49,7 +49,7 @@ class Account
 		
 		$account = $entityManager->find('\DragonJsonServerAccount\Entity\Account', $account_id);
 		if (null === $account) {
-			throw new \DragonJsonServer\Exception('incorrect account_id', ['account_id' => $account_id]);
+			throw new \DragonJsonServer\Exception('invalid account_id', ['account_id' => $account_id]);
 		}
 		return $account;
 	}
