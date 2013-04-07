@@ -44,7 +44,7 @@ class Session
 	}
 	
 	/**
-	 * Prüft den Sessionhash und setzt die Session
+	 * Prüft den Sessionhash und gibt die Session zurück
 	 * @param string $sessionhash
 	 * @return \DragonJsonServerAccount\Entity\Session
      * @throws \DragonJsonServer\Exception
