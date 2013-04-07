@@ -10,7 +10,7 @@
 namespace DragonJsonServerAccount\Entity;
 
 /**
- * Trait für die AccountId mit der Beziehung zu einem Account
+ * Trait für die AccountID mit der Beziehung zu einem Account
  */
 trait AccountIdTrait
 {
