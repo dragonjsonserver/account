@@ -54,7 +54,7 @@ class Module
 	    		$method = $request->getMethod();
 	    		list ($classname, $methodname) = $serviceManager->get('Server')->parseMethod($method);
 	    		$classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
-	    		if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('authenticate')) {
+	    		if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('session')) {
 	    			return;
 	    		}
 	    		$serviceSession = $serviceManager->get('Session');
@@ -69,7 +69,7 @@ class Module
 		        foreach ($eventServicemap->getServicemap()->getServices() as $method => $service) {
 	    			list ($classname, $methodname) = $serviceServer->parseMethod($method);
 		            $classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
-		            if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('authenticate')) {
+		            if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('session')) {
 		                continue;
 		            }
 		            $service->addParams([

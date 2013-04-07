@@ -33,7 +33,7 @@ class Account
 	
     /**
 	 * Meldet den Account ab und entfernt die dazugehörige Session
-     * @authenticate
+     * @session
 	 */
 	public function logoutAccount()
 	{
