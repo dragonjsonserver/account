@@ -43,7 +43,7 @@ class Account
 	 * @return \DragonJsonServerAccount\Entity\Account
      * @throws \DragonJsonServer\Exception
 	 */
-	public function getAccount($account_id)
+	public function getAccountByAccountId($account_id)
 	{
 		$entityManager = $this->getEntityManager();
 		
