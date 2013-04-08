@@ -50,6 +50,25 @@ class Session
 	}
 	
 	/**
+	 * Entfernt die übergebene Session aus der Datenbank
+	 * @param \DragonJsonServerAccount\Entity\Session $session
+	 * @return Session
+	 */
+	public function removeSession(\DragonJsonServerAccount\Entity\Session $session)
+	{
+		$entityManager = $this->getEntityManager();
+
+		$this->getEventManager()->trigger(
+			(new \DragonJsonServerAccount\Event\RemoveSession())
+				->setTarget($this)
+				->setSession($session)
+		);
+		$entityManager->remove($session);
+		$entityManager->flush();
+		return $this;
+	}
+	
+	/**
 	 * Setzt die aktuelle Session
 	 * @param \DragonJsonServerAccount\Entity\Session $session
 	 * @return Session
@@ -98,25 +117,6 @@ class Session
 		$entityManager = $this->getEntityManager();
 		
 		$entityManager->persist($session);
-		$entityManager->flush();
-		return $this;
-	}
-	
-	/**
-	 * Entfernt die übergebene Session aus der Datenbank
-	 * @param \DragonJsonServerAccount\Entity\Session $session
-	 * @return Session
-	 */
-	public function removeSession(\DragonJsonServerAccount\Entity\Session $session)
-	{
-		$entityManager = $this->getEntityManager();
-
-		$this->getEventManager()->trigger(
-			(new \DragonJsonServerAccount\Event\RemoveSession())
-				->setTarget($this)
-				->setSession($session)
-		);
-		$entityManager->remove($session);
 		$entityManager->flush();
 		return $this;
 	}
