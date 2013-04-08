@@ -40,6 +40,12 @@ class Session
 			->setData($data);
 		$entityManager->persist($session);
 		$entityManager->flush();
+		$this->getEventManager()->trigger(
+			(new \DragonJsonServerAccount\Event\CreateSession())
+				->setTarget($this)
+				->setAccount($account)
+				->setSession($session)
+		);
 		return $session;
 	}
 	
