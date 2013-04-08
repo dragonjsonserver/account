@@ -37,6 +37,31 @@ class Account
 		return $account;
 	}
 	
+	/**
+	 * Entfernt den übergebenen Account
+	 * @param \DragonJsonServerAccount\Entity\Account $account
+	 * @return Account
+	 */
+	public function removeAccount(\DragonJsonServerAccount\Entity\Account $account)
+	{
+		$entityManager = $this->getEntityManager();
+
+		$this->getEventManager()->trigger(
+			(new \DragonJsonServerAccount\Event\RemoveAccount())
+				->setTarget($this)
+				->setAccount($account)
+		);
+		$entityManager
+			->createQuery('
+				DELETE FROM \DragonJsonServerAccount\Entity\Session session
+				WHERE session.account_id = :account_id
+			')
+			->execute(['account_id' => $account->getAccountId()]);
+		$entityManager->remove($account);
+		$entityManager->flush();
+		return $this;
+	}
+	
     /**
 	 * Gibt den Account zur übergebenen AccountID zurück
 	 * @param integer $account_id

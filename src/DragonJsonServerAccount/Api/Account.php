@@ -31,6 +31,20 @@ class Account
 		return $session->toArray();
 	}
 	
+	/**
+	 * Entfernt den aktuellen Account
+	 * @session
+	 */
+	public function removeAccount()
+	{
+		$serviceManager = $this->getServiceManager();
+
+		$session = $serviceManager->get('Session')->getSession();
+		$serviceAccount = $serviceManager->get('Account');
+		$account = $serviceAccount->getAccountByAccountId($session->getAccountId());
+		$serviceAccount->removeAccount($account);
+	}
+	
     /**
 	 * Entfernt die aktuelle Session und meldet den Account somit ab
      * @session
