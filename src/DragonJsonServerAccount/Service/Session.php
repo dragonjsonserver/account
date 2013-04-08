@@ -106,7 +106,7 @@ class Session
 		$entityManager = $this->getEntityManager();
 
 		$this->getEventManager()->trigger(
-			(new \DragonJsonServerAccount\Event\LogoutAccount())
+			(new \DragonJsonServerAccount\Event\RemoveSession())
 				->setTarget($this)
 				->setSession($session)
 		);

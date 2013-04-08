@@ -12,17 +12,17 @@ namespace DragonJsonServerAccount\Event;
 /**
  * Eventklasse für das Beenden einer Session
  */
-class LogoutAccount extends \Zend\EventManager\Event
+class RemoveSession extends \Zend\EventManager\Event
 {
 	/**
 	 * @var string
 	 */
-	protected $name = 'logoutaccount';
+	protected $name = 'removesession';
 
     /**
      * Setzt die Session bevor sie beendet wurde
      * @param \DragonJsonServerAccount\Entity\Session $session
-     * @return LogoutAccount
+     * @return RemoveSession
      */
     public function setSession(\DragonJsonServerAccount\Entity\Session $session)
     {

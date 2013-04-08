@@ -32,10 +32,10 @@ class Account
 	}
 	
     /**
-	 * Meldet den Account ab und entfernt die dazugehörige Session
+	 * Entfernt die aktuelle Session und meldet den Account somit ab
      * @session
 	 */
-	public function logoutAccount()
+	public function removeSession()
 	{
     	$serviceManager = $this->getServiceManager();
     	
