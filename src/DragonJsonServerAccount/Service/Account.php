@@ -24,16 +24,16 @@ class Account
 	 */
 	public function createAccount()
 	{
-		$entityManager = $this->getEntityManager();
-	
 		$account = new \DragonJsonServerAccount\Entity\Account();
-		$entityManager->persist($account);
-		$entityManager->flush();
-		$this->getEventManager()->trigger(
-			(new \DragonJsonServerAccount\Event\CreateAccount())
-				->setTarget($this)
-				->setAccount($account)
-		);
+		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($account) {
+			$entityManager->persist($account);
+			$entityManager->flush();
+			$this->getEventManager()->trigger(
+				(new \DragonJsonServerAccount\Event\CreateAccount())
+					->setTarget($this)
+					->setAccount($account)
+			);
+		});
 		return $account;
 	}
 	
@@ -44,21 +44,21 @@ class Account
 	 */
 	public function removeAccount(\DragonJsonServerAccount\Entity\Account $account)
 	{
-		$entityManager = $this->getEntityManager();
-
-		$this->getEventManager()->trigger(
-			(new \DragonJsonServerAccount\Event\RemoveAccount())
-				->setTarget($this)
-				->setAccount($account)
-		);
-		$entityManager
-			->createQuery('
-				DELETE FROM \DragonJsonServerAccount\Entity\Session session
-				WHERE session.account_id = :account_id
-			')
-			->execute(['account_id' => $account->getAccountId()]);
-		$entityManager->remove($account);
-		$entityManager->flush();
+		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($account) {
+			$this->getEventManager()->trigger(
+					(new \DragonJsonServerAccount\Event\RemoveAccount())
+					->setTarget($this)
+					->setAccount($account)
+			);
+			$entityManager
+				->createQuery('
+					DELETE FROM \DragonJsonServerAccount\Entity\Session session
+					WHERE session.account_id = :account_id
+				')
+				->execute(['account_id' => $account->getAccountId()]);
+			$entityManager->remove($account);
+			$entityManager->flush();
+		});
 		return $this;
 	}
 	

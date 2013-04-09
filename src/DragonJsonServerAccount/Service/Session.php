@@ -31,21 +31,21 @@ class Session
 	 */
 	public function createSession(\DragonJsonServerAccount\Entity\Account $account, array $data = [])
 	{
-		$entityManager = $this->getEntityManager();
-		
 		$account_id = $account->getAccountId();
 		$session = (new \DragonJsonServerAccount\Entity\Session())
 			->setAccountId($account_id)
 			->setSessionhash(md5($account_id . microtime(true)))
 			->setData($data);
-		$entityManager->persist($session);
-		$entityManager->flush();
-		$this->getEventManager()->trigger(
-			(new \DragonJsonServerAccount\Event\CreateSession())
-				->setTarget($this)
-				->setAccount($account)
-				->setSession($session)
-		);
+		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($account, $session) {
+			$entityManager->persist($session);
+			$entityManager->flush();
+			$this->getEventManager()->trigger(
+				(new \DragonJsonServerAccount\Event\CreateSession())
+					->setTarget($this)
+					->setAccount($account)
+					->setSession($session)
+			);
+		});
 		return $session;
 	}
 	
@@ -56,15 +56,15 @@ class Session
 	 */
 	public function removeSession(\DragonJsonServerAccount\Entity\Session $session)
 	{
-		$entityManager = $this->getEntityManager();
-
-		$this->getEventManager()->trigger(
-			(new \DragonJsonServerAccount\Event\RemoveSession())
-				->setTarget($this)
-				->setSession($session)
-		);
-		$entityManager->remove($session);
-		$entityManager->flush();
+		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($session) {
+			$this->getEventManager()->trigger(
+					(new \DragonJsonServerAccount\Event\RemoveSession())
+					->setTarget($this)
+					->setSession($session)
+			);
+			$entityManager->remove($session);
+			$entityManager->flush();			
+		});
 		return $this;
 	}
 	
@@ -97,7 +97,6 @@ class Session
 	public function getSessionBySessionhash($sessionhash)
 	{
 		$entityManager = $this->getEntityManager();
-
 		$conditions = ['sessionhash' => $sessionhash];
 		$session = $entityManager->getRepository('\DragonJsonServerAccount\Entity\Session')
 			->findOneBy($conditions);
