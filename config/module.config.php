@@ -11,9 +11,11 @@
  * @return array
  */
 return [
-    'apiclasses' => [
-        '\DragonJsonServerAccount\Api\Account' => 'Account',
-    ],
+	'dragonjsonserver' => [
+	    'apiclasses' => [
+	        '\DragonJsonServerAccount\Api\Account' => 'Account',
+	    ],
+	],
 	'service_manager' => [
 		'invokables' => [
             'Account' => '\DragonJsonServerAccount\Service\Account',
