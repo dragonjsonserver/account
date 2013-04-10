@@ -52,7 +52,7 @@ class Module
 	    		if ($eventRequest->getTag()->getName() != 'session') {
 	    			return;
 	    		}
-	    		$serviceSession = $serviceManager->get('Session');
+	    		$serviceSession = $this->getServicemanager()->get('Session');
 	    		$sessionhash = $eventRequest->getRequest()->getParam('sessionhash');
 	    		$session = $serviceSession->getSessionBySessionhash($sessionhash);
 	    		$serviceSession->setSession($session);
