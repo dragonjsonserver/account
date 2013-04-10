@@ -16,6 +16,9 @@ return [
 	        '\DragonJsonServerAccount\Api\Account' => 'Account',
 	    ],
 	],
+	'dragonjsonserverapiannotation' => [
+		'annotations' => ['session'],
+	],
 	'service_manager' => [
 		'invokables' => [
             'Account' => '\DragonJsonServerAccount\Service\Account',

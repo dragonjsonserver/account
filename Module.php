@@ -47,39 +47,29 @@ class Module
     public function init(\Zend\ModuleManager\ModuleManager $moduleManager)
     {
     	$sharedManager = $moduleManager->getEventManager()->getSharedManager();
-    	$sharedManager->attach('DragonJsonServer\Service\Server', 'request', 
-	    	function (\DragonJsonServer\Event\Request $eventRequest) {
-	    		$serviceManager = $this->getServiceManager();
-	    		$request = $eventRequest->getRequest();
-	    		list ($classname, $methodname) = $serviceManager->get('Server')->parseMethod($request->getMethod());
-	    		$classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
-	    		if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('session')) {
+    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'request', 
+	    	function (\DragonJsonServerApiannotation\Event\Request $eventRequest) {
+	    		if ($eventRequest->getTag()->getName() != 'session') {
 	    			return;
 	    		}
 	    		$serviceSession = $serviceManager->get('Session');
-	    		$session = $serviceSession->getSessionBySessionhash($request->getParam('sessionhash'));
+	    		$session = $serviceSession->getSessionBySessionhash($eventRequest->getRequest()->getParam('sessionhash'));
 	    		$serviceSession->setSession($session);
 	    	}
     	);
-    	$sharedManager->attach('DragonJsonServer\Service\Server', 'servicemap', 
-    		function (\DragonJsonServer\Event\Servicemap $eventServicemap) {
-	    		$serviceManager = $this->getServiceManager();
-	    		$serviceServer = $serviceManager->get('Server');
-		        foreach ($eventServicemap->getServicemap()->getServices() as $method => $service) {
-	    			list ($classname, $methodname) = $serviceServer->parseMethod($method);
-		            $classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
-		            if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('session')) {
-		                continue;
-		            }
-		            $service->addParams([
-		                [
-		                    'type' => 'string',
-		                    'name' => 'sessionhash',
-		                    'optional' => false,
-		                ],
-		            ]);
-		        }
-    		}
+    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'servicemap', 
+	    	function (\DragonJsonServerApiannotation\Event\Servicemap $eventServicemap) {
+	    		if ($eventServicemap->getTag()->getName() != 'session') {
+	    			return;
+	    		}
+	    		$eventServicemap->getService()->addParams([
+    				[
+	    				'type' => 'string',
+	    				'name' => 'sessionhash',
+	    				'optional' => false,
+    				],
+    			]);
+	    	}
     	);
     }
 }
