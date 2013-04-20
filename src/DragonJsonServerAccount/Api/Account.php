@@ -26,7 +26,7 @@ class Account
 		
 		$account = $serviceManager->get('Account')->createAccount();
 		$serviceSession = $serviceManager->get('Session');
-		$session = $serviceSession->createSession($account);
+		$session = $serviceSession->createSession($account->getAccountId());
 		$serviceSession->setSession($session);
 		return $session->toArray();
 	}
