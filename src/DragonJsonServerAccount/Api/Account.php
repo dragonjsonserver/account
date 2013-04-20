@@ -54,7 +54,6 @@ class Account
     	$serviceManager = $this->getServiceManager();
     	
     	$serviceSession = $serviceManager->get('Session');
-    	$session = $serviceSession->getSession();
-    	$serviceSession->removeSession($session);
+    	$serviceSession->removeSession($serviceSession->getSession());
 	}
 }

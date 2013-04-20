@@ -20,26 +20,6 @@ class CreateSession extends \Zend\EventManager\Event
 	protected $name = 'createsession';
 
     /**
-     * Setzt den Account für den die Session erstellt wurde
-     * @param \DragonJsonServerAccount\Entity\Account $account
-     * @return CreateSession
-     */
-    public function setAccount(\DragonJsonServerAccount\Entity\Account $account)
-    {
-        $this->setParam('account', $account);
-        return $this;
-    }
-
-    /**
-     * Gibt den Account für den die Session erstellt wurde zurück
-     * @return \DragonJsonServerAccount\Entity\Account
-     */
-    public function getAccount()
-    {
-        return $this->getParam('account');
-    }
-
-    /**
      * Setzt die Session nachdem sie erstellt wurde
      * @param \DragonJsonServerAccount\Entity\Session $session
      * @return CreateSession
