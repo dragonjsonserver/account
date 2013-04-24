@@ -56,7 +56,7 @@ class Session
 	{
 		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($session) {
 			$this->getEventManager()->trigger(
-					(new \DragonJsonServerAccount\Event\RemoveSession())
+				(new \DragonJsonServerAccount\Event\RemoveSession())
 					->setTarget($this)
 					->setSession($session)
 			);
