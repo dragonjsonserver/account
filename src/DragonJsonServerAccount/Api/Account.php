@@ -33,7 +33,7 @@ class Account
 	
 	/**
 	 * Entfernt den aktuellen Account
-	 * @session
+	 * @DragonJsonServerAccount\Annotation\Session
 	 */
 	public function removeAccount()
 	{
@@ -47,7 +47,7 @@ class Account
 	
     /**
 	 * Entfernt die aktuelle Session und meldet den Account somit ab
-     * @session
+     * @DragonJsonServerAccount\Annotation\Session
 	 */
 	public function removeSession()
 	{

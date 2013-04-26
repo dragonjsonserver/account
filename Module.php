@@ -49,7 +49,7 @@ class Module
     	$sharedManager = $moduleManager->getEventManager()->getSharedManager();
     	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'request', 
 	    	function (\DragonJsonServerApiannotation\Event\Request $eventRequest) {
-	    		if ($eventRequest->getTag()->getName() != 'session') {
+	    		if (!$eventRequest->getAnnotation() instanceof \DragonJsonServerAccount\Annotation\Session) {
 	    			return;
 	    		}
 	    		$serviceSession = $this->getServicemanager()->get('Session');
@@ -60,7 +60,7 @@ class Module
     	);
     	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'servicemap', 
 	    	function (\DragonJsonServerApiannotation\Event\Servicemap $eventServicemap) {
-	    		if ($eventServicemap->getTag()->getName() != 'session') {
+	    		if (!$eventServicemap->getAnnotation() instanceof \DragonJsonServerAccount\Annotation\Session) {
 	    			return;
 	    		}
 	    		$eventServicemap->getService()->addParams([

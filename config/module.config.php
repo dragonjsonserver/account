@@ -17,7 +17,7 @@ return [
 	    ],
 	],
 	'dragonjsonserverapiannotation' => [
-		'annotations' => ['session'],
+		'annotations' => ['DragonJsonServerAccount\Annotation\Session'],
 	],
 	'service_manager' => [
 		'invokables' => [
