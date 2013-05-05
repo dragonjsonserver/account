@@ -105,14 +105,16 @@ class Session
 	}
 	
 	/**
-	 * Aktualisiert die übergebene Session in der Datenbank
+	 * Aktualisiert die Daten der Session
 	 * @param \DragonJsonServerAccount\Entity\Session $session
+	 * @param array $data
 	 * @return Session
 	 */
-	public function updateSession(\DragonJsonServerAccount\Entity\Session $session)
+	public function changeData(\DragonJsonServerAccount\Entity\Session $session, array $data)
 	{
 		$entityManager = $this->getEntityManager();
 		
+		$session->setData($data);
 		$entityManager->persist($session);
 		$entityManager->flush();
 		return $this;
