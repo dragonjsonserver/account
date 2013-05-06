@@ -17,7 +17,7 @@ class CreateAccount extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'createaccount';
+	protected $name = 'CreateAccount';
 
     /**
      * Setzt den Account der erstellt wurde

@@ -17,7 +17,7 @@ class CreateSession extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'createsession';
+	protected $name = 'CreateSession';
 
     /**
      * Setzt die Session nachdem sie erstellt wurde

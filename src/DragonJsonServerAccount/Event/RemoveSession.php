@@ -17,7 +17,7 @@ class RemoveSession extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'removesession';
+	protected $name = 'RemoveSession';
 
     /**
      * Setzt die Session bevor sie beendet wurde

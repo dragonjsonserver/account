@@ -17,7 +17,7 @@ class RemoveAccount extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'removeaccount';
+	protected $name = 'RemoveAccount';
 
     /**
      * Setzt den Account bevor er entfernt wird

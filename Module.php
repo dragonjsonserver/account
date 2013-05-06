@@ -47,7 +47,7 @@ class Module
     public function init(\Zend\ModuleManager\ModuleManager $moduleManager)
     {
     	$sharedManager = $moduleManager->getEventManager()->getSharedManager();
-    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'request', 
+    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'Request', 
 	    	function (\DragonJsonServerApiannotation\Event\Request $eventRequest) {
 	    		if (!$eventRequest->getAnnotation() instanceof \DragonJsonServerAccount\Annotation\Session) {
 	    			return;
@@ -58,7 +58,7 @@ class Module
 	    		$serviceSession->setSession($session);
 	    	}
     	);
-    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'servicemap', 
+    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'Servicemap', 
 	    	function (\DragonJsonServerApiannotation\Event\Servicemap $eventServicemap) {
 	    		if (!$eventServicemap->getAnnotation() instanceof \DragonJsonServerAccount\Annotation\Session) {
 	    			return;
