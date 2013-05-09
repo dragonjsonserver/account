@@ -50,12 +50,7 @@ class Account
 					->setTarget($this)
 					->setAccount($account)
 			);
-			$entityManager
-				->createQuery('
-					DELETE FROM \DragonJsonServerAccount\Entity\Session session
-					WHERE session.account_id = :account_id
-				')
-				->execute(['account_id' => $account->getAccountId()]);
+			$this->getServiceManager()->get('Session')->removeSessionsByAccountId($account->getAccountId());
 			$entityManager->remove($account);
 			$entityManager->flush();
 		});

@@ -67,6 +67,22 @@ class Session
 	}
 	
 	/**
+	 * Entfernt die Sessions mit der AccountID
+	 * @param integer $account_id
+	 * @return Session
+	 */
+	public function removeSessionsByAccountId($account_id)
+	{
+		$entityManager = $this->getEntityManager();
+		
+		$sessions = $this->getSessionsByAccountId($account_id);
+		foreach ($sessions as $session) {
+			$this->removeSession($session);
+		}
+		return $this;
+	}
+	
+	/**
 	 * Setzt die aktuelle Session
 	 * @param \DragonJsonServerAccount\Entity\Session $session
 	 * @return Session
@@ -95,6 +111,7 @@ class Session
 	public function getSessionBySessionhash($sessionhash)
 	{
 		$entityManager = $this->getEntityManager();
+		
 		$conditions = ['sessionhash' => $sessionhash];
 		$session = $entityManager->getRepository('\DragonJsonServerAccount\Entity\Session')
 			->findOneBy($conditions);
@@ -102,6 +119,19 @@ class Session
 			throw new \DragonJsonServer\Exception('invalid sessionhash', $conditions);
 		}
 		return $session;
+	}
+	
+	/**
+	 * Gibt die Sessions mit der AccountID zurück
+	 * @param integer $account_id
+	 * @return array
+	 */
+	public function getSessionsByAccountId($account_id)
+	{
+		$entityManager = $this->getEntityManager();
+		
+		return $entityManager->getRepository('\DragonJsonServerAccount\Entity\Session')
+			->findBy(['account_id' => $account_id]);
 	}
 	
 	/**
