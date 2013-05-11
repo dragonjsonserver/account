@@ -41,6 +41,7 @@ class Account
 	public function toArray()
 	{
 		return [
+			'entity' => 'Account',
 			'account_id' => $this->getAccountId(),
 			'created' => $this->getCreatedTimestamp(),
 		];

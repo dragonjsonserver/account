@@ -93,6 +93,7 @@ class Session
 	public function toArray()
 	{
 		return [
+			'entity' => 'Session',
 			'session_id' => $this->getSessionId(),
 			'modified' => $this->getModifiedTimestamp(),
 			'created' => $this->getCreatedTimestamp(),
