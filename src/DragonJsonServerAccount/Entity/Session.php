@@ -38,6 +38,17 @@ class Session
 	protected $data;
 	
 	/**
+	 * Setzt die ID der Session
+	 * @param integer $session_id
+	 * @return Session
+	 */
+	protected function setSessionId($session_id)
+	{
+		$this->session_id = $session_id;
+		return $this;
+	}
+	
+	/**
 	 * Gibt die ID der Session zurück
 	 * @return integer
 	 */
@@ -87,13 +98,29 @@ class Session
 	}
 	
 	/**
+	 * Setzt die Attribute der Session aus dem Array
+	 * @param array $array
+	 * @return Session
+	 */
+	public function fromArray(array $array)
+	{
+		return $this
+			->setSessionId($array['session_id'])
+			->setModifiedTimestamp($array['modified'])
+			->setCreatedTimestamp($array['created'])
+			->setAccountId($array['account_id'])
+			->setSessionhash($array['sessionhash'])
+			->setData($array['data']);
+	}
+	
+	/**
 	 * Gibt die Attribute der Session als Array zurück
 	 * @return array
 	 */
 	public function toArray()
 	{
 		return [
-			'entity' => 'Session',
+			'__className' => __CLASS__,
 			'session_id' => $this->getSessionId(),
 			'modified' => $this->getModifiedTimestamp(),
 			'created' => $this->getCreatedTimestamp(),

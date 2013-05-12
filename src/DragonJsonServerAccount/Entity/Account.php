@@ -26,6 +26,17 @@ class Account
 	protected $account_id;
 	
 	/**
+	 * Setzt die ID des Accounts
+	 * @param integer $account_id
+	 * @return Account
+	 */
+	protected function setAccountId($account_id)
+	{
+		$this->account_id = $account_id;
+		return $this;
+	}
+	
+	/**
 	 * Gibt die ID des Accounts zurück
 	 * @return integer
 	 */
@@ -35,13 +46,25 @@ class Account
 	}
 	
 	/**
+	 * Setzt die Attribute des Accounts aus dem Array
+	 * @param array $array
+	 * @return Account
+	 */
+	public function fromArray(array $array)
+	{
+		return $this
+			->setAccountId($array['account_id'])
+			->setCreatedTimestamp($array['created']);
+	}
+	
+	/**
 	 * Gibt die Attribute des Accounts als Array zurück
 	 * @return array
 	 */
 	public function toArray()
 	{
 		return [
-			'entity' => 'Account',
+			'__className' => __CLASS__,
 			'account_id' => $this->getAccountId(),
 			'created' => $this->getCreatedTimestamp(),
 		];
