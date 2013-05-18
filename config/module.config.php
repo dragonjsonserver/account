@@ -18,8 +18,8 @@ return [
 	],
 	'service_manager' => [
 		'invokables' => [
-            'Account' => '\DragonJsonServerAccount\Service\Account',
-            'Session' => '\DragonJsonServerAccount\Service\Session',
+            '\DragonJsonServerAccount\Service\Account' => '\DragonJsonServerAccount\Service\Account',
+            '\DragonJsonServerAccount\Service\Session' => '\DragonJsonServerAccount\Service\Session',
 		],
 	],
 	'doctrine' => [

@@ -52,7 +52,7 @@ class Module
 	    		if (!$eventRequest->getAnnotation() instanceof \DragonJsonServerAccount\Annotation\Session) {
 	    			return;
 	    		}
-	    		$serviceSession = $this->getServicemanager()->get('Session');
+	    		$serviceSession = $this->getServicemanager()->get('\DragonJsonServerAccount\Service\Session');
 	    		$sessionhash = $eventRequest->getRequest()->getParam('sessionhash');
 	    		$session = $serviceSession->getSessionBySessionhash($sessionhash);
 	    		$serviceSession->setSession($session);

@@ -24,8 +24,8 @@ class Account
 	{
 		$serviceManager = $this->getServiceManager();
 		
-		$account = $serviceManager->get('Account')->createAccount();
-		$serviceSession = $serviceManager->get('Session');
+		$account = $serviceManager->get('\DragonJsonServerAccount\Service\Account')->createAccount();
+		$serviceSession = $serviceManager->get('\DragonJsonServerAccount\Service\Session');
 		$session = $serviceSession->createSession($account->getAccountId());
 		$serviceSession->setSession($session);
 		return $session->toArray();
@@ -39,8 +39,8 @@ class Account
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$session = $serviceManager->get('Session')->getSession();
-		$serviceAccount = $serviceManager->get('Account');
+		$session = $serviceManager->get('\DragonJsonServerAccount\Service\Session')->getSession();
+		$serviceAccount = $serviceManager->get('\DragonJsonServerAccount\Service\Account');
 		$account = $serviceAccount->getAccountByAccountId($session->getAccountId());
 		$serviceAccount->removeAccount($account);
 	}
@@ -53,7 +53,7 @@ class Account
 	{
     	$serviceManager = $this->getServiceManager();
     	
-    	$serviceSession = $serviceManager->get('Session');
+    	$serviceSession = $serviceManager->get('\DragonJsonServerAccount\Service\Session');
     	$serviceSession->removeSession($serviceSession->getSession());
 	}
 }

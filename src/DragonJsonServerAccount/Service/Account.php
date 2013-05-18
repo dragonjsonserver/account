@@ -50,7 +50,7 @@ class Account
 					->setTarget($this)
 					->setAccount($account)
 			);
-			$this->getServiceManager()->get('Session')->removeSessionsByAccountId($account->getAccountId());
+			$this->getServiceManager()->get('\DragonJsonServerAccount\Service\Session')->removeSessionsByAccountId($account->getAccountId());
 			$entityManager->remove($account);
 			$entityManager->flush();
 		});
