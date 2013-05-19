@@ -35,7 +35,7 @@ class Session
 			->setAccountId($account_id)
 			->setSessionhash(md5($account_id . microtime(true)))
 			->setData($data);
-		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($session) {
+		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($session) {
 			$entityManager->persist($session);
 			$entityManager->flush();
 			$this->getEventManager()->trigger(
@@ -54,7 +54,7 @@ class Session
 	 */
 	public function removeSession(\DragonJsonServerAccount\Entity\Session $session)
 	{
-		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($session) {
+		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($session) {
 			$this->getEventManager()->trigger(
 				(new \DragonJsonServerAccount\Event\RemoveSession())
 					->setTarget($this)
