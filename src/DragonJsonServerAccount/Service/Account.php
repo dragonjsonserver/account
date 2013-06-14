@@ -25,7 +25,7 @@ class Account
 	public function createAccount()
 	{
 		$account = new \DragonJsonServerAccount\Entity\Account();
-		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($account) {
+		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($account) {
 			$entityManager->persist($account);
 			$entityManager->flush();
 			$this->getEventManager()->trigger(
@@ -44,7 +44,7 @@ class Account
 	 */
 	public function removeAccount(\DragonJsonServerAccount\Entity\Account $account)
 	{
-		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($account) {
+		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($account) {
 			$this->getEventManager()->trigger(
 					(new \DragonJsonServerAccount\Event\RemoveAccount())
 					->setTarget($this)
