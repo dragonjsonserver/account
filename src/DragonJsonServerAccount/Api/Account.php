@@ -15,6 +15,13 @@ namespace DragonJsonServerAccount\Api;
 class Account
 {
 	use \DragonJsonServer\ServiceManagerTrait;
+
+    /**
+     * Methode zur Verbindungsprüfung
+     * @DragonJsonServerAccount\Annotation\Session
+     */
+    public function ping()
+    {}
 	
     /**
 	 * Erstellt einen neuen Account und gibt die dazugehörige Session zurück
