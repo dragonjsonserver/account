@@ -25,17 +25,21 @@ class Session
 	
     /**
 	 * Erstellt eine neue Session für den übergebenen Account
-	 * @param integer $account_id
+	 * @param \DragonJsonServerAccount\Entity\Account|integer $account
 	 * @param array $data
 	 * @return \DragonJsonServerAccount\Entity\Session
 	 */
-	public function createSession($account_id, array $data = [])
+	public function createSession($account, array $data = [])
 	{
+        $serviceManager = $this->getServiceManager();
+        if (!is_object($account)) {
+            $account = $serviceManager->get('\DragonJsonServerAccount\Service\Account')->getAccountByAccountId($account);
+        }
 		$session = (new \DragonJsonServerAccount\Entity\Session())
-			->setAccountId($account_id)
-			->setSessionhash(md5($account_id . microtime(true)))
-			->setData($data);
-		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($session) {
+			->setAccountId($account->getAccountId())
+			->setSessionhash(md5(uniqid()))
+			->setData(['account' => $account->toArray()] + $data);
+        $serviceManager->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($session) {
 			$entityManager->persist($session);
 			$entityManager->flush();
 			$this->getEventManager()->trigger(

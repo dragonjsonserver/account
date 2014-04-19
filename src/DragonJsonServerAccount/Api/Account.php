@@ -25,15 +25,16 @@ class Account
 	
     /**
 	 * Erstellt einen neuen Account und gibt die dazugehörige Session zurück
+     * @param string $name
 	 * @return array
 	 */
-	public function createAccount()
+	public function createAccount($name)
 	{
 		$serviceManager = $this->getServiceManager();
 		
-		$account = $serviceManager->get('\DragonJsonServerAccount\Service\Account')->createAccount();
+		$account = $serviceManager->get('\DragonJsonServerAccount\Service\Account')->createAccount($name);
 		$serviceSession = $serviceManager->get('\DragonJsonServerAccount\Service\Session');
-		$session = $serviceSession->createSession($account->getAccountId());
+		$session = $serviceSession->createSession($account);
 		$serviceSession->setSession($session);
 		return $session->toArray();
 	}

@@ -24,6 +24,11 @@ class Account
 	 * @Doctrine\ORM\Mapping\GeneratedValue
 	 **/
 	protected $account_id;
+
+    /**
+     * @Doctrine\ORM\Mapping\Column(type="string")
+     **/
+    protected $name;
 	
 	/**
 	 * Setzt die ID des Accounts
@@ -44,6 +49,26 @@ class Account
 	{
 		return $this->account_id;
 	}
+
+    /**
+     * Setzt den Namen des Accounts
+     * @param string $name
+     * @return Account
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Gibt den Namen des Accounts zurück
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 	
 	/**
 	 * Setzt die Attribute des Accounts aus dem Array
@@ -54,7 +79,8 @@ class Account
 	{
 		return $this
 			->setAccountId($array['account_id'])
-			->setCreatedTimestamp($array['created']);
+            ->setCreatedTimestamp($array['created'])
+            ->setName($array['name']);
 	}
 	
 	/**
@@ -66,7 +92,8 @@ class Account
 		return [
 			'__className' => __CLASS__,
 			'account_id' => $this->getAccountId(),
-			'created' => $this->getCreatedTimestamp(),
+            'created' => $this->getCreatedTimestamp(),
+            'name' => $this->getName(),
 		];
 	}
 }
