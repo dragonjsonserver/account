@@ -22,6 +22,19 @@ class Account
      */
     public function ping()
     {}
+
+    /**
+     * Validiert den übergebenen Namen
+     * @param string $name
+     * @throws \DragonJsonServer\Exception
+     */
+    public function validateName($name)
+    {
+        $serviceManager = $this->getServiceManager();
+
+        $serviceAccount = $serviceManager->get('\DragonJsonServerAccount\Service\Account');
+        $serviceAccount->validateName($name);
+    }
 	
     /**
 	 * Erstellt einen neuen Account und gibt die dazugehörige Session zurück
@@ -30,6 +43,7 @@ class Account
 	 */
 	public function createAccount($name)
 	{
+        $this->validateName($name);
 		$serviceManager = $this->getServiceManager();
 		
 		$account = $serviceManager->get('\DragonJsonServerAccount\Service\Account')->createAccount($name);

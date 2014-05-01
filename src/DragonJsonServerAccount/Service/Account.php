@@ -18,6 +18,31 @@ class Account
 	use \DragonJsonServer\EventManagerTrait;
 	use \DragonJsonServerDoctrine\EntityManagerTrait;
 
+    /**
+     * Validiert den übergebenen Namen
+     * @param string $name
+     * @return Avatar
+     * @throws \DragonJsonServer\Exception
+     */
+    public function validateName($name)
+    {
+        $filter = new \Zend\Filter\StringTrim();
+        if ($name != $filter->filter($name)) {
+            throw new \DragonJsonServer\Exception('invalid name', ['name' => $name]);
+        }
+        $namelength = $this->getServiceManager()->get('Config')['dragonjsonserveraccount']['namelength'];
+        $validator = (new \Zend\Validator\StringLength())
+            ->setMin($namelength['min'])
+            ->setMax($namelength['max']);
+        if (!$validator->isValid($name)) {
+            throw new \DragonJsonServer\Exception(
+                'invalid name',
+                ['name' => $name, 'namelength' => $namelength]
+            );
+        }
+        return $this;
+    }
+
 	/**
 	 * Erstellt einen neuen Account und gibt ihn zurück
      * @param string $name

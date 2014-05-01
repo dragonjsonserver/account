@@ -11,6 +11,12 @@
  * @return array
  */
 return [
+    'dragonjsonserveraccount' => [
+        'namelength' => [
+            'min' => '3',
+            'max' => '255',
+        ],
+    ],
 	'dragonjsonserver' => [
 	    'apiclasses' => [
 	        '\DragonJsonServerAccount\Api\Account' => 'Account',
