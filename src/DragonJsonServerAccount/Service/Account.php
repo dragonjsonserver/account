@@ -100,4 +100,25 @@ class Account
 		}
 		return $account;
 	}
+
+    /**
+     * Gibt den Account zum übergebenen Namen zurück
+     * @param string $name
+     * @param boolean $throwException
+     * @return \DragonJsonServerAccount\Entity\Account
+     * @throws \DragonJsonServer\Exception
+     */
+    public function getAccountByName($name, $throwException = true)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $conditions = ['name' => $name];
+        $account = $entityManager
+            ->getRepository('\DragonJsonServerAccount\Entity\Account')
+            ->findOneBy($conditions);
+        if (null === $account && $throwException) {
+            throw new \DragonJsonServer\Exception('invalid name', $conditions);
+        }
+        return $account;
+    }
 }

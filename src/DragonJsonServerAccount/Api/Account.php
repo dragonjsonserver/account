@@ -34,6 +34,13 @@ class Account
 
         $serviceAccount = $serviceManager->get('\DragonJsonServerAccount\Service\Account');
         $serviceAccount->validateName($name);
+        $account = $serviceAccount->getAccountByName($name, false);
+        if (null !== $account) {
+            throw new \DragonJsonServer\Exception(
+                'name not unique',
+                ['name' => $name, 'account' => $account->toArray()]
+            );
+        }
     }
 	
     /**
