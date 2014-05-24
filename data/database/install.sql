@@ -2,6 +2,7 @@ CREATE TABLE `accounts` (
 	`account_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`created` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 	`name` VARCHAR(255) NOT NULL,
+	`language` CHAR(2) NOT NULL,
 	PRIMARY KEY (`account_id`),
 	UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -29,6 +29,11 @@ class Account
      * @Doctrine\ORM\Mapping\Column(type="string")
      **/
     protected $name;
+
+    /**
+     * @Doctrine\ORM\Mapping\Column(type="string")
+     **/
+    protected $language;
 	
 	/**
 	 * Setzt die ID des Accounts
@@ -69,6 +74,26 @@ class Account
     {
         return $this->name;
     }
+
+    /**
+     * Setzt die Sprache des Accounts
+     * @param string $language
+     * @return Account
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+        return $this;
+    }
+
+    /**
+     * Gibt die Sprache des Accounts zurück
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
 	
 	/**
 	 * Setzt die Attribute des Accounts aus dem Array
@@ -80,7 +105,8 @@ class Account
 		return $this
 			->setAccountId($array['account_id'])
             ->setCreatedTimestamp($array['created'])
-            ->setName($array['name']);
+            ->setName($array['name'])
+            ->setLanguage($array['language']);
 	}
 	
 	/**
@@ -94,6 +120,7 @@ class Account
 			'account_id' => $this->getAccountId(),
             'created' => $this->getCreatedTimestamp(),
             'name' => $this->getName(),
+            'language' => $this->getLanguage(),
 		];
 	}
 }
