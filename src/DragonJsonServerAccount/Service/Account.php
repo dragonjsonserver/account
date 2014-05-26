@@ -123,4 +123,20 @@ class Account
         }
         return $account;
     }
+
+    /**
+     * Ändert die Sprache des aktuellen Accounts
+     * @param integer $account_id
+     * @param string $language
+     */
+    public function changeLanguage($account_id, $language)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $account = $this->getAccountByAccountId($account_id);
+        $account->setLanguage($language);
+        $entityManager->persist($account);
+        $entityManager->flush();
+        return $account;
+    }
 }

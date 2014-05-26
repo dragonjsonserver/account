@@ -87,4 +87,22 @@ class Account
     	$serviceSession = $serviceManager->get('\DragonJsonServerAccount\Service\Session');
     	$serviceSession->removeSession($serviceSession->getSession());
 	}
+
+    /**
+     * Ändert die Sprache des aktuellen Accounts
+     * @param string $language
+     * @DragonJsonServerAccount\Annotation\Session
+     */
+    public function changeLanguage($language)
+    {
+        $serviceManager = $this->getServiceManager();
+
+        $serviceSession = $serviceManager->get('\DragonJsonServerAccount\Service\Session');
+        $session = $serviceSession->getSession();
+        $account = $serviceManager->get('\DragonJsonServerAccount\Service\Account')
+            ->changeLanguage($session->getAccountId(), $language);
+        $data = $session->getData();
+        $data['account'] = $account->toArray();
+        $serviceSession->changeData($session, $data);
+    }
 }
