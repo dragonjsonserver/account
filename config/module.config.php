@@ -19,7 +19,8 @@ return [
     ],
 	'dragonjsonserver' => [
 	    'apiclasses' => [
-	        '\DragonJsonServerAccount\Api\Account' => 'Account',
+            '\DragonJsonServerAccount\Api\Account' => 'Account',
+            '\DragonJsonServerAccount\Api\Session' => 'Session',
 	    ],
 	],
 	'service_manager' => [
