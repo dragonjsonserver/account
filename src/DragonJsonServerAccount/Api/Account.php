@@ -75,18 +75,6 @@ class Account
 		$account = $serviceAccount->getAccountByAccountId($session->getAccountId());
 		$serviceAccount->removeAccount($account);
 	}
-	
-    /**
-	 * Entfernt die aktuelle Session und meldet den Account somit ab
-     * @DragonJsonServerAccount\Annotation\Session
-	 */
-	public function removeSession()
-	{
-    	$serviceManager = $this->getServiceManager();
-    	
-    	$serviceSession = $serviceManager->get('\DragonJsonServerAccount\Service\Session');
-    	$serviceSession->removeSession($serviceSession->getSession());
-	}
 
     /**
      * Ändert die Sprache des aktuellen Accounts
