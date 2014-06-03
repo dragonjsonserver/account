@@ -125,6 +125,25 @@ class Account
     }
 
     /**
+     * Gibt alle Accounts zurück die zum übergebenen Namen passen
+     * @param string $name
+     * @return array
+     */
+    public function searchAccountsByName($name)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $accounts = $entityManager
+            ->createQuery('
+				SELECT account FROM \DragonJsonServerAccount\Entity\Account account
+				WHERE
+					account.name LIKE :name
+			')
+            ->execute(['name' => '%' . $name . '%']);
+        return $accounts;
+    }
+
+    /**
      * Ändert die Sprache des aktuellen Accounts
      * @param integer $account_id
      * @param string $language

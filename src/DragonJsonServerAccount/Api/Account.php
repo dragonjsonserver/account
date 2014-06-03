@@ -82,6 +82,20 @@ class Account
 	}
 
     /**
+     * Gibt alle Accounts zurück die zum übergebenen Namen passen
+     * @param string $name
+     * @return array
+     */
+    public function searchAccountsByName($name)
+    {
+        $serviceManager = $this->getServiceManager();
+
+        $accounts = $serviceManager->get('\DragonJsonServerAccount\Service\Account')
+            ->searchAccountsByName($name);
+        return $serviceManager->get('\DragonJsonServerDoctrine\Service\Doctrine')->toArray($accounts);
+    }
+
+    /**
      * Ändert die Sprache des aktuellen Accounts
      * @param string $language
      * @DragonJsonServerAccount\Annotation\Session
