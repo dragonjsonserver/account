@@ -12,6 +12,7 @@
  */
 return [
 	'dragonjsonserveraccount' => [
+        'betakeys' => '%betakey%',
 		'namelength' => [
 			'min' => '%min%',
 			'max' => '%max%',

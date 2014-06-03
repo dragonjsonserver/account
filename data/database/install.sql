@@ -17,3 +17,10 @@ CREATE TABLE `sessions` (
 	PRIMARY KEY (`session_id`),
 	UNIQUE KEY `sessionhash` (`sessionhash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `betakeys` (
+	`betakey_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`betakey` CHAR(32) NOT NULL,
+	PRIMARY KEY (`betakey_id`),
+	UNIQUE KEY `betakey` (`betakey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

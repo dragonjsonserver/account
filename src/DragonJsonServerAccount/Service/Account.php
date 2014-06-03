@@ -75,7 +75,7 @@ class Account
 	{
 		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($account) {
 			$this->getEventManager()->trigger(
-					(new \DragonJsonServerAccount\Event\RemoveAccount())
+                (new \DragonJsonServerAccount\Event\RemoveAccount())
 					->setTarget($this)
 					->setAccount($account)
 			);

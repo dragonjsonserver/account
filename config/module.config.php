@@ -12,6 +12,7 @@
  */
 return [
     'dragonjsonserveraccount' => [
+        'betakeys' => false,
         'namelength' => [
             'min' => '3',
             'max' => '255',
@@ -26,6 +27,7 @@ return [
 	'service_manager' => [
 		'invokables' => [
             '\DragonJsonServerAccount\Service\Account' => '\DragonJsonServerAccount\Service\Account',
+            '\DragonJsonServerAccount\Service\Betakey' => '\DragonJsonServerAccount\Service\Betakey',
             '\DragonJsonServerAccount\Service\Session' => '\DragonJsonServerAccount\Service\Session',
 		],
 	],

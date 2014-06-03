@@ -47,13 +47,18 @@ class Account
 	 * Erstellt einen neuen Account und gibt die dazugehörige Session zurück
      * @param string $name
      * @param string $language
+     * @param string $betakey
 	 * @return array
 	 */
-	public function createAccount($name, $language)
+	public function createAccount($name, $language, $betakey = null)
 	{
         $this->validateName($name);
 		$serviceManager = $this->getServiceManager();
-		
+
+        if ($serviceManager->get('Config')['dragonjsonserveraccount']['betakeys']) {
+            $serviceManager->get('\DragonJsonServerAccount\Service\Betakey')
+                ->removeBetakey($betakey);
+        }
 		$account = $serviceManager->get('\DragonJsonServerAccount\Service\Account')
             ->createAccount($name, $language);
 		$serviceSession = $serviceManager->get('\DragonJsonServerAccount\Service\Session');
