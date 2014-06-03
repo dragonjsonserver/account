@@ -19,11 +19,26 @@ class Betakey
 	
 	/**
 	 * Entfernt den übergebenen Betakey
-	 * @param string $betakey
+	 * @param \DragonJsonServerAccount\Entity\Betakey $betakey
 	 * @return Betakey
 	 */
-	public function removeBetakey($betakey)
+	public function removeBetakey(\DragonJsonServerAccount\Entity\Betakey $betakey)
 	{
+        $entityManager = $this->getEntityManager();
+
+        $entityManager->remove($betakey);
+        $entityManager->flush();
+		return $this;
+	}
+
+    /**
+     * Gibt den Betakey zurück
+     * @param string $betakey
+     * @return \DragonJsonServerAccount\Entity\Betakey
+     * @throws \DragonJsonServer\Exception
+     */
+    public function getBetakeyByBetakey($betakey)
+    {
         $entityManager = $this->getEntityManager();
 
         $conditions = ['betakey' => $betakey];
@@ -32,8 +47,6 @@ class Betakey
         if (null === $betakey) {
             throw new \DragonJsonServer\Exception('invalid betakey', $conditions);
         }
-        $entityManager->remove($betakey);
-        $entityManager->flush();
-		return $this;
-	}
+        return $betakey;
+    }
 }

@@ -56,8 +56,8 @@ class Account
 		$serviceManager = $this->getServiceManager();
 
         if ($serviceManager->get('Config')['dragonjsonserveraccount']['betakeys']) {
-            $serviceManager->get('\DragonJsonServerAccount\Service\Betakey')
-                ->removeBetakey($betakey);
+            $serviceBetakey = $serviceManager->get('\DragonJsonServerAccount\Service\Betakey');
+            $serviceBetakey->removeBetakey($serviceBetakey->getBetakeyByBetakey($betakey));
         }
 		$account = $serviceManager->get('\DragonJsonServerAccount\Service\Account')
             ->createAccount($name, $language);

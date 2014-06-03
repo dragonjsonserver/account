@@ -21,6 +21,7 @@ return [
 	'dragonjsonserver' => [
 	    'apiclasses' => [
             '\DragonJsonServerAccount\Api\Account' => 'Account',
+            '\DragonJsonServerAccount\Api\Betakey' => 'Betakey',
             '\DragonJsonServerAccount\Api\Session' => 'Session',
 	    ],
 	],
