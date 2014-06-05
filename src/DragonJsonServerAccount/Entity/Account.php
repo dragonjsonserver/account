@@ -34,6 +34,11 @@ class Account
      * @Doctrine\ORM\Mapping\Column(type="string")
      **/
     protected $language;
+
+    /**
+     * @Doctrine\ORM\Mapping\Column(type="string")
+     **/
+    protected $betakey;
 	
 	/**
 	 * Setzt die ID des Accounts
@@ -93,6 +98,26 @@ class Account
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    /**
+     * Setzt den Betakey des Accounts
+     * @param string $betakey
+     * @return Betakey
+     */
+    public function setBetakey($betakey)
+    {
+        $this->betakey = $betakey;
+        return $this;
+    }
+
+    /**
+     * Gibt den Betakey des Accounts zurück
+     * @return string
+     */
+    public function getBetakey()
+    {
+        return $this->betakey;
     }
 	
 	/**

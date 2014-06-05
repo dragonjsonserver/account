@@ -47,13 +47,15 @@ class Account
 	 * Erstellt einen neuen Account und gibt ihn zurück
      * @param string $name
      * @param string $language
+     * @param string $betakey
 	 * @return \DragonJsonServerAccount\Entity\Account
 	 */
-	public function createAccount($name, $language)
+	public function createAccount($name, $language, $betakey)
 	{
 		$account = (new \DragonJsonServerAccount\Entity\Account())
             ->setName($name)
-            ->setLanguage($language);
+            ->setLanguage($language)
+            ->setBetakey($betakey);
 		$this->getServiceManager()->get('\DragonJsonServerDoctrine\Service\Doctrine')->transactional(function ($entityManager) use ($account) {
 			$entityManager->persist($account);
 			$entityManager->flush();
