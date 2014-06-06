@@ -22,6 +22,7 @@ return [
 	    'apiclasses' => [
             '\DragonJsonServerAccount\Api\Account' => 'Account',
             '\DragonJsonServerAccount\Api\Betakey' => 'Betakey',
+            '\DragonJsonServerAccount\Api\BetakeyAdmin' => 'BetakeyAdmin',
             '\DragonJsonServerAccount\Api\Session' => 'Session',
 	    ],
 	],
@@ -29,6 +30,7 @@ return [
 		'invokables' => [
             '\DragonJsonServerAccount\Service\Account' => '\DragonJsonServerAccount\Service\Account',
             '\DragonJsonServerAccount\Service\Betakey' => '\DragonJsonServerAccount\Service\Betakey',
+            '\DragonJsonServerAccount\Service\BetakeyAdmin' => '\DragonJsonServerAccount\Service\BetakeyAdmin',
             '\DragonJsonServerAccount\Service\Session' => '\DragonJsonServerAccount\Service\Session',
 		],
 	],
